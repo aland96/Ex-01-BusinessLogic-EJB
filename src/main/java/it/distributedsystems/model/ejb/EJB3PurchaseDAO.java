@@ -49,6 +49,12 @@ import javax.persistence.PersistenceContext;
         }
 
         em.persist(purchase);
+		for (Product product : purchase.getProducts()){
+            if(product != null && product.getId() > 0) {
+                product.setPurchase(purchase);
+                em.merge(product);
+            }
+        }
         return purchase.getId();
     }
 

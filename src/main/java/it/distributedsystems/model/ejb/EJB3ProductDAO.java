@@ -32,7 +32,10 @@ public class EJB3ProductDAO implements ProductDAO {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public int insertProduct(Product product) {
 
-        em.persist(product);
+		if (product.getProducer()!= null && product.getProducer().getId() > 0)
+            product.setProducer(em.merge(product.getProducer()));
+
+		em.persist(product);
         return product.getId();
     }
 
