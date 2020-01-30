@@ -25,7 +25,7 @@ public class EJB3MDB implements javax.jms.MessageListener {
         try {
             connection = connectionFactory.createConnection();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			consumer = session.createConsumer(destination);
+			consumer = session.createReceiver(destination);
 			consumer.setMessageListener(this);
         } catch (JMSException e){
             e.printStackTrace();
